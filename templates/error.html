@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="alert alert-danger" role="alert">
+        <strong>Something went wrong with the query.</strong> <br />
+        Query: {{ query }}<br />
+        Error: {{ error }}
+    </div>
+</form>
+
+{% endblock %}

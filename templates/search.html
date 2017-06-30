@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block content %}
+    <h2>Search</h2>
+<form method="GET">
+  <div class="form-group">
+    <label for="searchword">Search for Word</label>
+    <input type="text" class="form-control" id="searchword" name="searchword" value="{{ searchword }}">
+  </div>
+  <div class="form-group">
+    <label for="fuzzy_matching">Matching type</label>
+      <select class="form-control" name="fuzzy_matching">
+            <option value="n" {% if fuzzy == 'n' %} selected {% endif %}>Regular search</option>
+            <option value="y" {% if fuzzy == 'y' %} selected {% endif %}>Fuzzy search</option>
+        </select>
+  </div>
+  <button type="submit" class="btn btn-default">Submit</button>
+</form>
+    <h2>Results</h2>
+    <table class="table table-striped">
+    <tr>
+        <th>Word</th><th>Frequency</th>
+    </tr>
+    {% for word in words %}
+    <tr>
+        <td>{{ word.word }}</td><td>{{ word.frequency }}</td>
+    </tr>
+    {% endfor %}
+
+    </table>
+
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+<form method="GET">
+    <div class="form-group row">
+        <label for="search-input" class="col-2 col-form-label">Access token</label>
+        <div class="col-10">
+            <input class="form-control" type="search" value="{{access_token}}" id="search-input" name="access_token">
+        </div>
+    </div>
+</form>
+    <div class="alert alert-{{ msgclass }}">{{ msg }}</div>
+
+
+{% endblock %}
