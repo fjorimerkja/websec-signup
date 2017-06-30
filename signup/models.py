@@ -14,6 +14,7 @@ class Word(models.Model):
 class Student(models.Model):
     first_name = models.CharField(max_length=60)
     last_name = models.CharField(max_length=60)
+    email = models.CharField(max_length=120)
     access_token = models.CharField(max_length=64, unique=True)
 
 

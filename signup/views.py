@@ -11,7 +11,7 @@ import MySQLdb
 import sqlparse
 
 
-def add_student(request, first_name, last_name, access_token):
+def add_student(request, first_name, last_name, email, access_token):
     # TODO: this needs to be accessible only for an admin, so for now it is not linked to
     conn = MySQLdb.connect("127.0.0.1", "websec_ui", "websec", "websec")
     conn.autocommit(True)
@@ -20,8 +20,8 @@ def add_student(request, first_name, last_name, access_token):
     # stored procedures allow for nice fine-grained access rights. All we really need to do to signup is to call
     # the function here :-)
     cur.execute("""
-    CALL signup(%s, %s, %s)
-    """, (first_name, last_name, access_token))
+    CALL signup(%s, %s, %s, %s)
+    """, (first_name, last_name, email, access_token))
 
 
 def generate_access_token(request):
