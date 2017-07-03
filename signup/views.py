@@ -7,14 +7,14 @@ from django.utils.safestring import mark_safe
 from django.views.decorators.csrf import csrf_exempt
 
 from models import Word, Student, CrawlerURL
-import MySQLdb
+import pymysql
 import sqlparse
 
 
 def add_student(request, first_name, last_name, email, access_token):
     # TODO: this needs to be accessible only for an admin, so for now it is not linked to
-    conn = MySQLdb.connect("127.0.0.1", "websec_ui", "websec", "websec")
-    conn.autocommit(True)
+    conn = pymysql.connect("127.0.0.1", "websec_ui", "websec", "websec")
+    conn.autocommit = True
     cur = conn.cursor()
 
     # stored procedures allow for nice fine-grained access rights. All we really need to do to signup is to call
@@ -46,8 +46,8 @@ def search(request):
 
     if fuzzy_matching == 'y':
         # I am too lazy to understand how fuzzy matching works with objects, so let's just go with a regular SQL query
-        conn = MySQLdb.connect("127.0.0.1", "websec_ui", "websec", "websec")
-        conn.autocommit(True)
+        conn = pymysql.connect("127.0.0.1", "websec_ui", "websec", "websec")
+        conn.autocommit = True
         cur = conn.cursor()
 
         query = "SELECT word, frequency FROM signup_word WHERE word LIKE '%{}%';".format(searchword)
@@ -115,7 +115,7 @@ def check_status(request):
 def submit_url(request):
     if request.method == 'POST':
         url = request.POST.get("url")
-        if not url.startswith("https://lecture.websec.cispa.saarland"):
+        if not url.startswith("https://websec.cispa.saarland"):
             return render_to_response("submiturl.html", {"message": "Don't use URLs outside of the lecture site"})
         if CrawlerURL.objects.filter(url=url):
             return render_to_response("submiturl.html", {"message": "This URL was already added. Please wait for it to "
