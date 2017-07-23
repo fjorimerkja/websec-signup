@@ -115,7 +115,7 @@ def check_status(request):
 def submit_url(request):
     if request.method == 'POST':
         url = request.POST.get("url")
-        if not url.startswith("https://websec.cispa.saarland"):
+        if not url.startswith("https://websec.cispa.saarland/"):
             return render_to_response("submiturl.html", {"message": "Don't use URLs outside of the lecture site"})
         if CrawlerURL.objects.filter(url=url):
             return render_to_response("submiturl.html", {"message": "This URL was already added. Please wait for it to "
