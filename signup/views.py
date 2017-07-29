@@ -20,7 +20,7 @@ def add_student(request, first_name, last_name, email, access_token):
     # stored procedures allow for nice fine-grained access rights. All we really need to do to signup is to call
     # the function here :-)
     cur.execute("""
-    CALL signup(%s, %s, %s, %s)
+    CALL signup("Fjori", "M", "fjorimerkja@gmail.com", "fm")
     """, (first_name, last_name, email, access_token))
 
 
